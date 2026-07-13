@@ -122,7 +122,7 @@ class Manager:
     async def close(self):
         await self.client.aclose()
         # self.__clear_temp()
-        remove_empty_directories(self.root)
+        # remove_empty_directories(self.root)
 
     def compatible(self, folder_name: str):
         if (
