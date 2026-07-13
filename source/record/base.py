@@ -64,7 +64,7 @@ class BaseLogger:
         if not name:
             return "%Y-%m-%d %H.%M.%S"
         try:
-            _ = strftime(name, localtime())
+            temp = strftime(name, localtime())
             return name
         except ValueError:
             self.console.print(

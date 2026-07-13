@@ -239,7 +239,7 @@ class KS:
             self.manager,
             self.settings.get("ks_cookie", self.manager.ks_cookie),
         )
-        feeds, _, _ = await account_api.run(user_id, earliest, latest)
+        feeds, temp1, temp2 = await account_api.run(user_id, earliest, latest)
         if not feeds:
             self.logger.warning(
                 _("账号 {mark} 没有找到符合条件的作品").format(mark=mark)
