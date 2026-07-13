@@ -10,6 +10,9 @@ from ..variable import PC_USERAGENT, RETRY, TIMEOUT
 if TYPE_CHECKING:
     from ..tools import Cleaner, ColorConsole
 
+    from ..manager import Cache, DownloadRecorder
+    from ..record import BaseLogger, LoggerManager
+
 
 class Parameter:
     NO_PROXY = {
@@ -46,8 +49,20 @@ class Parameter:
         folder_mode: bool = False,
         author_archive: bool = False,
         max_workers=4,
+        ks_cookie: str = "",
+        ks_accounts: list = None,
+        root: str = "",
+        recorder: "DownloadRecorder" = None,
+        cache: "Cache" = None,
+        logger: "BaseLogger | LoggerManager" = None,
     ):
-        self.root = PROJECT_ROOT
+        self.root = PROJECT_ROOT if not root else Path(root)
+        self.root.mkdir(parents=True, exist_ok=True)
+        self.ks_cookie = ks_cookie or cookie
+        self.ks_accounts = ks_accounts or []
+        self.recorder = recorder
+        self.cache = cache
+        self.logger = logger
         self.cleaner = cleaner
         self.console = console
         self.mapping_data = mapping_data or {}
@@ -79,6 +94,11 @@ class Parameter:
             "work_path": self.work_path,
             "folder_name": self.folder_name,
             "cookie": self.cookie,
+            "ks_cookie": self.ks_cookie,
+            "ks_accounts": self.ks_accounts,
+            "recorder": self.recorder,
+            "cache": self.cache,
+            "logger": self.logger,
             "cover": self.cover,
             "music": self.music,
             "data_record": self.data_record,

@@ -1,9 +1,11 @@
+from json import load as json_load
 from platform import system
+import sys
 from typing import TYPE_CHECKING
 from shutil import move
 from yaml import dump, safe_load
 
-from ..static import PROJECT_ROOT
+from ..static import PROJECT_ROOT, VOLUME_ROOT
 from ..translation import _
 from ..variable import PC_USERAGENT, RETRY, TIMEOUT
 
@@ -86,3 +88,55 @@ class Config:
         if update:
             self.write(data)
         return data
+
+
+class Settings:
+    encode = "UTF-8-SIG" if system() == "Windows" else "UTF-8"
+
+    def __init__(self):
+        self.file = self._find_settings_file()
+        self.data = {}
+
+    @staticmethod
+    def _find_settings_file() -> Path:
+        from pathlib import Path
+        import sys
+        if getattr(sys, 'frozen', False):
+            meipass = Path(sys._MEIPASS)
+            candidate = meipass / "settings.json"
+            if candidate.exists():
+                return candidate
+        candidate = PROJECT_ROOT.joinpath("settings.json")
+        if candidate.exists():
+            return candidate
+        return PROJECT_ROOT.joinpath("settings.json")
+
+    def read(self) -> dict:
+        if self.file.exists():
+            try:
+                with self.file.open("r", encoding=self.encode) as f:
+                    self.data = json_load(f)
+            except Exception:
+                self.data = self._default()
+        else:
+            self.data = self._default()
+            self.update(self.data)
+        return self.data
+
+    def update(self, data: dict):
+        from json import dump
+        target = VOLUME_ROOT.joinpath("settings.json")
+        if getattr(sys, 'frozen', False):
+            pass
+        else:
+            target = PROJECT_ROOT.joinpath("settings.json")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with target.open("w", encoding=self.encode) as f:
+            dump(data, f, ensure_ascii=False, indent=4)
+
+    def _default(self) -> dict:
+        return {
+            "root": "./Download",
+            "ks_cookie": "",
+            "ks_accounts": [],
+        }

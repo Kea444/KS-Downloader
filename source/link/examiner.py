@@ -7,7 +7,6 @@ from urllib.parse import (
     urlunparse,
 )
 
-from click.testing import Result
 from httpx import get
 from ..tools import capture_error_request, retry_request, wait
 from ..variable import TIMEOUT
@@ -166,8 +165,20 @@ class Examiner:
                 return self._extract_params_detail(
                     url,
                 )
+            case "user":
+                return self._extract_user_id(url)
             case _:
                 raise ValueError
+
+    def _extract_user_id(self, url: str) -> str:
+        url = urlparse(url)
+        path = url.path
+        if "profile" in path:
+            return path.split("/")[-1]
+        params = parse_qs(url.query)
+        if uid := params.get("userId", [""])[0]:
+            return uid
+        return ""
 
     def _extract_params_detail(
         self,

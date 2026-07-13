@@ -15,7 +15,11 @@ from ..variable import (
 if TYPE_CHECKING:
     from pathlib import Path
 
+    from ..record import BaseLogger, LoggerManager
     from ..tools import Cleaner, ColorConsole
+
+    from .cache import Cache
+    from .recorder import DownloadRecorder
 
 
 class Manager:
@@ -43,6 +47,11 @@ class Manager:
         folder_mode: bool,
         author_archive: bool,
         max_workers: int,
+        ks_cookie: str = "",
+        ks_accounts: list = None,
+        recorder: "DownloadRecorder" = None,
+        cache: "Cache" = None,
+        logger: "BaseLogger | LoggerManager" = None,
         *args,
         **kwargs,
     ):
@@ -91,6 +100,11 @@ class Manager:
         self.chunk = chunk
         self.mapping_data = mapping_data
         self.max_workers = max_workers
+        self.ks_cookie = ks_cookie
+        self.ks_accounts = ks_accounts or []
+        self.recorder = recorder
+        self.cache = cache
+        self.logger = logger
         self.__create_folder()
 
     def __create_folder(self):

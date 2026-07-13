@@ -12,13 +12,14 @@ from .console import (
     WARNING,
     INFO,
 )
+from .mapping import Mapping
 from .namespace import Namespace
+from .progress import FakeProgress
 from .remove import remove_empty_directories
 from .retry import retry_request
+from .sleep import wait
+from .suspend import suspend
 from .truncate import beautify_string
 from .truncate import trim_string
 from .truncate import truncate_string
 from .version import Version
-from .mapping import Mapping
-from .sleep import wait
-from .progress import FakeProgress

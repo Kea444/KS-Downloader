@@ -1,7 +1,14 @@
 from pathlib import Path
+import sys
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.joinpath("Volume")
-PROJECT_ROOT.mkdir(exist_ok=True)
+def _get_project_root() -> Path:
+    if getattr(sys, 'frozen', False):
+        return Path(sys.executable).parent
+    return Path(__file__).resolve().parent.parent.parent
+
+PROJECT_ROOT = _get_project_root()
+VOLUME_ROOT = PROJECT_ROOT.joinpath("Volume")
+VOLUME_ROOT.mkdir(exist_ok=True)
 VERSION_MAJOR = 1
 VERSION_MINOR = 6
 VERSION_BETA = True

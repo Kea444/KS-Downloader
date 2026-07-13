@@ -1,0 +1,13 @@
+{
+    "root": "./Download",
+    "ks_cookie": "",
+    "ks_accounts": [
+        {
+            "mark": "",
+            "url": "",
+            "earliest": "",
+            "latest": "",
+            "enable": true
+        }
+    ]
+}
