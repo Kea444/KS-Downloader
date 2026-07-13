@@ -166,7 +166,12 @@ class KS:
 
     async def ks_account_interactive(self):
         accounts = self.settings.get("ks_accounts", [])
-        accounts = [a for a in accounts if a.get("enable", True)]
+        accounts = [
+            a for a in accounts
+            if a.get("enable", True)
+            and a.get("url", "").strip()
+            and a.get("mark", "").strip()
+        ]
         if not accounts:
             self.logger.warning(_("settings.json 中没有启用的快手账号！"))
             return
