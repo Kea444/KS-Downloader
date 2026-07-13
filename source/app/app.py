@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from uvicorn import Config as APIConfig
 from uvicorn import Server
-from ..config import Config, Parameter, Settings
+from ..config import Parameter, Settings
 from ..downloader import Downloader
 from ..extract import APIExtractor, HTMLExtractor
 from ..interface import Account
@@ -71,13 +71,12 @@ class KS:
         self.console = ColorConsole(
             self.VERSION_BETA,
         )
-        self.settings_obj = Settings()
+        self.settings_obj = Settings(console=self.console)
         self.settings = self.settings_obj.read()
-        self.config_obj = Config(self.console)
         self.params = Parameter(
             console=self.console,
             cleaner=self.cleaner,
-            **self.config_obj.read(),
+            **self.settings,
         )
         self.config: dict | None = None
         self.option: dict | None = None

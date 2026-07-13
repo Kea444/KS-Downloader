@@ -1,4 +1,4 @@
-from .config import Config, Settings
+from .config import Settings
 from .parameter import Parameter
 
-__all__ = ["Config", "Parameter", "Settings"]
+__all__ = ["Parameter", "Settings"]

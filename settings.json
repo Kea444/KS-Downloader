@@ -1,10 +1,29 @@
 {
+    "mapping_data": {
+        "作者ID(AuthorID)": "作者别名(AuthorAlias)"
+    },
+    "work_path": "",
     "root": "./Download",
+    "folder_name": "Download",
+    "name_format": "发布日期 作者昵称 作品描述",
+    "name_length": 128,
+    "cookie": "",
     "ks_cookie": "",
+    "proxy": null,
+    "data_record": false,
+    "max_workers": 4,
+    "cover": "",
+    "music": false,
+    "max_retry": 5,
+    "timeout": 10,
+    "chunk": 2097152,
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "folder_mode": false,
+    "author_archive": false,
     "ks_accounts": [
         {
-            "mark": "",
-            "url": "",
+            "mark": "示例作者（请修改）",
+            "url": "https://www.kuaishou.com/profile/3x...",
             "earliest": "",
             "latest": "",
             "enable": true
