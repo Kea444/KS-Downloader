@@ -1,3 +1,5 @@
+from asyncio import sleep
+from random import uniform
 from typing import TYPE_CHECKING
 
 from ..tools import capture_error_request, retry_request, wait
