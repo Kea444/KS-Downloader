@@ -61,6 +61,9 @@ class _AccountCollector:
         self.items: list[dict] = []
         self.finished = False
         self._page_count = 0
+        # 装饰器需要这两个属性
+        self.console = parent.console
+        self.retry = parent.retry
 
     async def run(self) -> tuple[list[dict], str, str]:
         while not self.finished:

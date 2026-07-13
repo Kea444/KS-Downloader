@@ -40,6 +40,7 @@ class Mapping:
         await self.database.update_mapping_data(
             id_,
             alias,
+            alias,
         )
 
     async def has_mapping(self, id_: str) -> str:
