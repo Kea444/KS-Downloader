@@ -276,6 +276,8 @@ class KS:
                 continue
             data["mark"] = mark
             data_list.append(data)
+            # 每个作品处理之间随机延迟 0.5-2 秒
+            await sleep(uniform(0.5, 2))
 
         if not data_list:
             self.logger.warning(

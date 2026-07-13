@@ -97,11 +97,26 @@ class _AccountCollector:
     @retry_request
     @capture_error_request
     async def _post_data(self, url: str, data: dict) -> dict | None:
+        jsondata = data
         response = await self.parent.client.post(
             url,
             headers=self.parent.headers,
-            data=data,
+            json=jsondata,
         )
         await wait()
+        if response.status_code != 200:
+            self.console.warning(
+                _("API 返回非 200 状态码: {code}，URL: {url}").format(
+                    code=response.status_code, url=url
+                )
+            )
+            # 输出响应体前 300 字符帮助诊断
+            body_preview = response.text[:300]
+            if body_preview:
+                self.console.warning(
+                    _("响应内容预览: {body}").format(body=body_preview)
+                )
         response.raise_for_status()
+        # 随机延迟 1-3 秒，降低请求频率
+        await sleep(uniform(1, 3))
         return response.json()
