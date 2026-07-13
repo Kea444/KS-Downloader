@@ -127,18 +127,20 @@ class Manager:
     def compatible(self, folder_name: str):
         if (
             (old := self.root.parent.joinpath("Temp")).exists()
-        ) and not self.temp.exists():
+        ) and not self.temp.exists() and old.resolve() != self.temp.resolve():
             move(old, self.temp)
         if (
             self.path == self.root
             and (old := self.path.parent.joinpath("Data")).exists()
             and not self.data.exists()
+            and old.resolve() != self.data.resolve()
         ):
             move(old, self.data)
         if (
             self.path == self.root
             and (old := self.path.parent.joinpath(folder_name)).exists()
             and not self.folder.exists()
+            and old.resolve() != self.folder.resolve()
         ):
             move(old, self.folder)
 
