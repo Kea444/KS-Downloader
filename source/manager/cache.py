@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from ..tools import Retry
 from ..translation import _
 
 if TYPE_CHECKING:

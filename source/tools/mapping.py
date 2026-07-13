@@ -44,7 +44,7 @@ class Mapping:
         )
 
     async def has_mapping(self, id_: str) -> str:
-        return d[0] if (d := await self.database.get_mapping_data(id_)) else ""
+        return d[0] if (d := await self.database.read_mapping_data(id_)) else ""
 
     def __check_file(
         self,
