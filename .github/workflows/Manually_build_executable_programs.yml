@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: 签出存储库
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: 设置 Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55
         with:
           python-version: "3.12"
 
@@ -30,17 +30,17 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           echo "DATE=$(Get-Date -Format 'yyyyMMdd')" >> $env:GITHUB_ENV
-          pyinstaller --icon=./docs/KS-Downloader.ico --add-data "source:source" --add-data "locale:locale" --collect-all rich main.py
+          pyinstaller --icon=./docs/KS-Downloader.ico --add-data "source;source" --add-data "locale;locale" --add-data "settings.json;." --hidden-import source.interface --hidden-import source.interface.account --hidden-import source.manager.cache --hidden-import source.manager.recorder --hidden-import source.record.base --hidden-import source.record.logger --hidden-import source.tools.suspend --collect-all rich main.py
         shell: pwsh
 
       - name: 构建 Mac 可执行文件
         if: runner.os == 'macOS'
         run: |
           echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
-          pyinstaller --icon=./docs/KS-Downloader.icns --add-data "source:source" --add-data "locale:locale" --collect-all rich main.py
+          pyinstaller --icon=./docs/KS-Downloader.icns --add-data "source:source" --add-data "locale:locale" --add-data "settings.json:." --hidden-import source.interface --hidden-import source.interface.account --hidden-import source.manager.cache --hidden-import source.manager.recorder --hidden-import source.record.base --hidden-import source.record.logger --hidden-import source.tools.suspend --collect-all rich main.py
 
       - name: 上传文件
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         with:
           name: KS-Downloader_${{ runner.os }}_${{ runner.arch }}_${{ env.DATE }}
           path: dist/main/

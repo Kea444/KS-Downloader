@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete all containers from package without tags
-        uses: Chizkiyahu/delete-untagged-ghcr-action@v6
+        uses: Chizkiyahu/delete-untagged-ghcr-action@9c3d49360e208a1d429ea9ff2dec6d5f69dc9bb5
         with:
           token: ${{ secrets.PAT_TOKEN }}
           repository_owner: ${{ github.repository_owner }}
