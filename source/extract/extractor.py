@@ -157,6 +157,9 @@ class HTMLExtractor:
 
     def __extract_detail_web(self, data: Namespace, id_: str) -> dict:
         data = data.safe_extract("defaultClient")
+        if not data or isinstance(data, (str, int, float, bool)):
+            self.console.warning(_("网页数据结构异常：defaultClient 不是有效的对象"))
+            return {}
         detail = f"VisionVideoDetailPhoto:{id_}"
         if not Namespace.object_extract(data, detail):
             return {}

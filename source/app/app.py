@@ -194,8 +194,14 @@ class KS:
                 else:
                     count.failed += 1
             except Exception as e:
+                import traceback
                 self.logger.error(
                     _("处理账号 {mark} 失败: {error}").format(mark=mark, error=e)
+                )
+                self.logger.error(
+                    _("详细错误信息: {trace}").format(
+                        trace=traceback.format_exc()
+                    )
                 )
                 count.failed += 1
             if index < len(accounts):
@@ -302,6 +308,8 @@ class KS:
             if await self.recorder.has_id(detail_id):
                 continue
             name = data.get("caption", detail_id)
+            if not isinstance(name, str):
+                name = str(name) if name is not None else detail_id
             name = self.cleaner.filter_name(name) or detail_id
             suffix = "mp4" if data.get("photoType") == _("视频") else "webp"
             file_path = folder.joinpath(f"{name}_{idx}.{suffix}")
