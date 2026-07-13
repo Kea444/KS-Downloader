@@ -98,7 +98,7 @@ class Settings:
         self.data = {}
 
     @staticmethod
-    def _find_settings_file() -> Path:
+    def _find_settings_file():
         from pathlib import Path
         import sys
         if getattr(sys, 'frozen', False):
