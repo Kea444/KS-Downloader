@@ -117,7 +117,7 @@ class Settings:
                 "作者ID(AuthorID)": "作者别名(AuthorAlias)",
             },
             "work_path": "",
-            "root": "./Download",
+            "root": "",
             "folder_name": "Download",
             "name_format": "发布日期 作者昵称 作品描述",
             "name_length": 128,

@@ -272,11 +272,9 @@ class KS:
             )
             return True
 
-        # 4. 下载
+        # 4. 下载（使用 manager.folder 作为根目录）
         from pathlib import Path
-        root = Path(self.settings.get("root", "./Download"))
-        if not root.is_absolute():
-            root = self.manager.root.joinpath(root)
+        root = self.manager.folder
         mark_folder = root.joinpath(mark) if mark else root.joinpath(user_id)
         mark_folder.mkdir(parents=True, exist_ok=True)
 
